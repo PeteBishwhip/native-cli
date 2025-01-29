@@ -116,9 +116,9 @@ class NewCommand extends Command
         return $process->isSuccessful() && $output ? $output : 'main';
     }
 
-    private function getLaravelBinary()
+    private function getLaravelBinary(): string
     {
-        $globalInstall = __DIR__ . '/laravel';
+        $globalInstall = __DIR__ . '/../../../bin/laravel';
 
         if (file_exists($globalInstall)) {
             return $globalInstall;
