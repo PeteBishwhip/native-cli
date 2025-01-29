@@ -13,7 +13,7 @@ composer global require petebishwhip/native-cli:"^1@beta"
 ## Usage
 To create a new Laravel project with NativePHP, use the new command:
 ```bash
-nativephp new <project-name>
+nativecli new <project-name>
 ```
 
 ## Documentation
