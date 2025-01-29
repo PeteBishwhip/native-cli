@@ -1,8 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use Petebishwhip\NativePhpCli\Command\NewCommand;
-use Petebishwhip\NativePhpCli\Version;
+use Petebishwhip\NativePhpCli\Application;
 
 ini_set('error_reporting', E_ALL);
 ini_set('display_errors', '1');
@@ -22,9 +21,6 @@ if (isset($_SERVER['HOME'])) {
     throw new Exception("Could not determine home directory!", 1);
 }
 
-define('NATIVEPHP_HOME_PATH', $home_path .'/.nativephp');
+define('NATIVECLI_HOME_PATH', $home_path .'/.nativephp');
 
-$app = new Symfony\Component\Console\Application('NativePHP CLI Tool', Version::get());
-$app->add(new NewCommand());
-
-$app->run();
+Application::create()->run();

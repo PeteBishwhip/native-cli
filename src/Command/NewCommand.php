@@ -59,7 +59,7 @@ class NewCommand extends Command
         try {
             $output->writeln('Creating a new NativePHP project...');
 
-            $process = new Process(['./vendor/bin/laravel', 'new', ...$this->input->getRawTokens(true)]);
+            $process = new Process([__DIR__ . '/../../vendor/bin/laravel', 'new', ...$this->input->getRawTokens(true)]);
             $process->setTty(Process::isTtySupported())
                 ->mustRun(function ($type, $buffer) {
                     $this->output->write($buffer);
