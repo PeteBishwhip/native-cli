@@ -5,6 +5,7 @@ namespace Petebishwhip\NativePhpCli\Command;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Composer;
 use Petebishwhip\NativePhpCli\Exception\CommandFailed;
+use Petebishwhip\NativePhpCli\NativePHP;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
@@ -72,7 +73,11 @@ class NewCommand extends Command
             chdir($this->input->getArgument('name'));
 
             $composer = new Composer(new Filesystem(), $this->filePath);
-            $composer->requirePackages(['nativephp/electron'], false, $output);
+            $composer->requirePackages(
+                NativePHP::getPackagesForComposer(),
+                false,
+                $output
+            );
 
             // Locate PHP & remove new lines
             $php = trim(Process::fromShellCommandline('which php')->mustRun()->getOutput());
