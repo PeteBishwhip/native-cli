@@ -14,7 +14,7 @@
         "phpunit/phpunit": "^11.5"
     },
     "bin": [
-        "bin/nativephp"
+        "bin/nativecli"
     ],
     "license": "MIT",
     "autoload": {
