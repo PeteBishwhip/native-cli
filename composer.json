@@ -7,7 +7,9 @@
         "symfony/process": "^7.2",
         "laravel/installer": "^5.11",
         "illuminate/support": "^11.41",
-        "illuminate/filesystem": "^11.41"
+        "illuminate/filesystem": "^11.41",
+        "z4kn4fein/php-semver": "^3.0",
+        "ext-curl": "*"
     },
     "require-dev": {
         "phpunit/phpunit": "^11.5"

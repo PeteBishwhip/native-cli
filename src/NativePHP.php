@@ -11,11 +11,21 @@ class NativePHP
      */
     public static function getPackagesForComposer(): array
     {
-        $response = file_get_contents(self::NATIVECLI_RECOMMENDED_VERSION_URL);
+        $ch = curl_init();
+
+        curl_setopt($ch, CURLOPT_URL, self::NATIVECLI_RECOMMENDED_VERSION_URL);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, [
+            'User-Agent: NativeCLI/Updater'
+        ]);
+
+        $response = curl_exec($ch);
 
         if ($response === false) {
             throw new Exception('Failed to fetch recommended version');
         }
+
+        curl_close($ch);
 
         $data = json_decode($response, true);
 
