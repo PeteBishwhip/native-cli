@@ -2,7 +2,9 @@
 
 namespace Petebishwhip\NativePhpCli\Command;
 
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Collection;
+use Petebishwhip\NativePhpCli\Composer;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -60,10 +62,28 @@ class UpdateNativePHPCommand extends Command
 
             if (!$helper->ask($input, $output, $question)) {
                 $output->writeln('<info>Update cancelled.</info>', $this->getOutputVerbosityLevel($input));
+
                 return Command::SUCCESS;
             }
 
             $output->writeln('<info>Updating NativePHP...</info>', $this->getOutputVerbosityLevel($input));
+
+            $composer = new Composer(new Filesystem(), getcwd());
+            $composerOutput = new BufferedOutput();
+            $composer->requirePackages(
+                $updateInfo->where('isOutdated', true)
+                    ->map(function ($packageInfo, $key) {
+                        return sprintf('%s:%s', $key, $packageInfo['latest']);
+                    })
+                    ->toArray(),
+                false,
+                $composerOutput
+            );
+
+            $output->writeln($composerOutput->fetch(), $this->getOutputVerbosityLevel($input));
+
+            $output->writeln('<info>NativePHP has been updated.</info>', $this->getOutputVerbosityLevel($input));
+            $output->writeln('<info>Go forth and make great apps 🚀</info>', $this->getOutputVerbosityLevel($input));
         }
 
         return Command::SUCCESS;
