@@ -8,7 +8,7 @@ class Application extends \Symfony\Component\Console\Application
     {
         parent::__construct('NativePHP CLI Tool', Version::get());
 
-        $this->registerCommands();
+        $this->addCommands($this->getCommands());
     }
 
     public static function create(): Application
@@ -16,10 +16,10 @@ class Application extends \Symfony\Component\Console\Application
         return new static();
     }
 
-    private function registerCommands(): void
+    public function getCommands(): array
     {
-        $this->addCommands([
+       return [
             new Command\NewCommand(),
-        ]);
+       ];
     }
 }
