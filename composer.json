@@ -32,5 +32,8 @@
             "email": "peter@soniaandpete.com"
         }
     ],
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
     "minimum-stability": "stable"
 }
