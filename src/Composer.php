@@ -3,6 +3,7 @@
 namespace Petebishwhip\NativePhpCli;
 
 use RuntimeException;
+use Throwable;
 use z4kn4fein\SemVer\Version as SemanticVersion;
 
 class Composer extends \Illuminate\Support\Composer
@@ -11,7 +12,7 @@ class Composer extends \Illuminate\Support\Composer
     {
         try {
             $this->findComposerFile();
-        } catch (\Throwable $e) {
+        } catch (Throwable) {
             return false;
         }
 
@@ -47,10 +48,10 @@ class Composer extends \Illuminate\Support\Composer
 
     protected function findComposerLockFile(): string
     {
-        $composerLockFile = "{$this->workingPath}/composer.lock";
+        $composerLockFile = "$this->workingPath/composer.lock";
 
         if (!file_exists($composerLockFile)) {
-            throw new RuntimeException("Unable to locate `composer.lock` file at [{$this->workingPath}].");
+            throw new RuntimeException("Unable to locate `composer.lock` file at [$this->workingPath].");
         }
 
         return $composerLockFile;

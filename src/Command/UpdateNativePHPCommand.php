@@ -14,6 +14,7 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\BufferedOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
+use Throwable;
 
 #[AsCommand(
     name: 'update',
@@ -33,7 +34,7 @@ class UpdateNativePHPCommand extends Command
     }
 
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
@@ -96,7 +97,7 @@ class UpdateNativePHPCommand extends Command
     }
 
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
     private function getUpdateInformation(): Collection
     {

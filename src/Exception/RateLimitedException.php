@@ -10,6 +10,6 @@ class RateLimitedException extends Exception
     {
         $url = parse_url($url, PHP_URL_HOST);
 
-        return new self("Rate limited by {$url}. Wait a while before trying again.");
+        return new self("Rate limited by $url. Wait a while before trying again.");
     }
 }

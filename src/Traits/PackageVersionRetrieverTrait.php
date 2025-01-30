@@ -3,10 +3,17 @@
 namespace Petebishwhip\NativePhpCli\Traits;
 
 use Petebishwhip\NativePhpCli\Exception;
+use Petebishwhip\NativePhpCli\Exception\RateLimitedException;
+use RuntimeException;
 use z4kn4fein\SemVer\Version as SemanticVersion;
 
 trait PackageVersionRetrieverTrait
 {
+    /**
+     * @throws Exception
+     * @throws RateLimitedException
+     * @noinspection PhpUnusedParameterInspection
+     */
     public static function getVersionForPackage(string $package, string $tag = 'latest'): ?SemanticVersion
     {
         $url = sprintf(
@@ -40,7 +47,7 @@ trait PackageVersionRetrieverTrait
                 throw Exception\RateLimitedException::for($url);
             }
 
-            throw new \RuntimeException('Failed to retrieve version for ' . $package);
+            throw new RuntimeException('Failed to retrieve version for ' . $package);
         }
 
         $latestVersion = $data['tag_name'];
