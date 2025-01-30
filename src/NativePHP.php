@@ -2,8 +2,11 @@
 
 namespace Petebishwhip\NativePhpCli;
 
+use Petebishwhip\NativePhpCli\Traits\PackageVersionRetrieverTrait;
+
 class NativePHP
 {
+    use PackageVersionRetrieverTrait;
     public const NATIVECLI_RECOMMENDED_VERSION_URL = 'https://nativecli.com/resources/latestRecommendedVersion.json';
 
     /**
@@ -36,5 +39,16 @@ class NativePHP
         return array_map(function ($package) {
             return sprintf('%s:%s', $package['packageName'], $package['version']);
         }, $data);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function getLatestVersions(): array
+    {
+        return [
+            'nativephp/electron' => self::getVersionForPackage('nativephp/electron'),
+            'nativephp/laravel' => self::getVersionForPackage('nativephp/laravel')
+        ];
     }
 }

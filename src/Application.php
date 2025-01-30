@@ -2,6 +2,9 @@
 
 namespace Petebishwhip\NativePhpCli;
 
+use Petebishwhip\NativePhpCli\Command\CheckNativePHPUpdatesCommand;
+use Petebishwhip\NativePhpCli\Command\UpdateNativePHPCommand;
+
 class Application extends \Symfony\Component\Console\Application
 {
     public function __construct()
@@ -19,7 +22,9 @@ class Application extends \Symfony\Component\Console\Application
     public function getCommands(): array
     {
        return [
-            new Command\NewCommand(),
+           new Command\NewCommand(),
+           new UpdateNativePHPCommand(),
+           new CheckNativePHPUpdatesCommand(),
        ];
     }
 }

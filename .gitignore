@@ -2,3 +2,4 @@
 vendor
 cache/*
 .phpunit.cache
+test-dir
