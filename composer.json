@@ -21,6 +21,11 @@
             "Petebishwhip\\NativePhpCli\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Petebishwhip\\NativePhpCli\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Pete Bishop",
