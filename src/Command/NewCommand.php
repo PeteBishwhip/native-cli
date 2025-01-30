@@ -13,6 +13,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Process\Process;
+use Throwable;
 
 #[AsCommand(
     name: 'new',
@@ -20,10 +21,7 @@ use Symfony\Component\Process\Process;
 )]
 class NewCommand extends Command
 {
-    private InputInterface $input;
     private OutputInterface $output;
-    private string $cwd;
-    private string $filePath;
 
     protected function configure(): void
     {
@@ -52,15 +50,15 @@ class NewCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $this->input = $input;
         $this->output = $output;
-        $this->cwd = getcwd();
-        $this->filePath = $this->cwd . '/' . $this->input->getArgument('name');
+        $cwd = getcwd();
+        $filePath = $cwd . '/' . $input->getArgument('name');
 
         try {
             $output->writeln('Creating a new NativePHP project...');
 
-            $process = new Process(['laravel', 'new', ...$this->input->getRawTokens(true)]);
+            /** @noinspection PhpPossiblePolymorphicInvocationInspection */
+            $process = new Process(['laravel', 'new', ...$input->getRawTokens(true)]);
             $process->setTty(Process::isTtySupported())
                 ->mustRun(function ($type, $buffer) {
                     $this->output->write($buffer);
@@ -70,9 +68,9 @@ class NewCommand extends Command
                 ? $output->writeln('<info>Laravel project created successfully.</info>')
                 : throw new CommandFailed('NativePHP project creation failed.');
 
-            chdir($this->input->getArgument('name'));
+            chdir($input->getArgument('name'));
 
-            $composer = new Composer(new Filesystem(), $this->filePath);
+            $composer = new Composer(new Filesystem(), $filePath);
             $composer->requirePackages(
                 NativePHP::getPackagesForComposer(),
                 false,
@@ -96,7 +94,7 @@ class NewCommand extends Command
             $output->writeln('<error>' . $e->getMessage() . '</error>');
 
             return Command::FAILURE;
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $output->writeln('<error>' . $e->getMessage() . '</error>');
 
             return Command::FAILURE;
@@ -119,22 +117,5 @@ class NewCommand extends Command
         $output = trim($process->getOutput());
 
         return $process->isSuccessful() && $output ? $output : 'main';
-    }
-
-    private function getLaravelBinary(): string
-    {
-        $globalInstall = __DIR__ . '/../../../bin/laravel';
-
-        if (file_exists($globalInstall)) {
-            return $globalInstall;
-        }
-
-        $devInstall = __DIR__ . '/../../vendor/bin/laravel';
-
-        if (file_exists($devInstall)) {
-            return $devInstall;
-        }
-
-        throw new CommandFailed('Laravel binary not found.');
     }
 }

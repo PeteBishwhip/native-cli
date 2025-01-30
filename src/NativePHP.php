@@ -6,6 +6,9 @@ class NativePHP
 {
     public const NATIVECLI_RECOMMENDED_VERSION_URL = 'https://nativecli.com/resources/latestRecommendedVersion.json';
 
+    /**
+     * @throws Exception
+     */
     public static function getPackagesForComposer(): array
     {
         $response = file_get_contents(self::NATIVECLI_RECOMMENDED_VERSION_URL);

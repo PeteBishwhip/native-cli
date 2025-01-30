@@ -8,6 +8,7 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 
 if (file_exists(__DIR__.'/../../../autoload.php')) {
+    /** @noinspection PhpUnresolvedIncludeInspection */
     require __DIR__.'/../../../autoload.php';
 } else {
     require __DIR__.'/../vendor/autoload.php';
@@ -18,9 +19,11 @@ if (isset($_SERVER['HOME'])) {
 } elseif (isset($_SERVER['HOMEPATH'])) {
     $home_path = $_SERVER['HOMEPATH'];
 } else {
+    /** @noinspection PhpUnhandledExceptionInspection */
     throw new Exception("Could not determine home directory!", 1);
 }
 
 define('NATIVECLI_HOME_PATH', $home_path .'/.nativephp');
 
+/** @noinspection PhpUnhandledExceptionInspection */
 Application::create()->run();
