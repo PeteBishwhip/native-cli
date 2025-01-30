@@ -1,6 +1,11 @@
 version: "1.0"
+php:
+  version: 8.2
 linter: jetbrains/qodana-php:2024.3
 profile:
   name: qodana.recommended
-include:
-  - name: CheckDependencyLicenses
+
+exclude:
+  - name: All
+    paths:
+      - tests
