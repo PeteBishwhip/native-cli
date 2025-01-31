@@ -21,7 +21,7 @@ class Version
      */
     public static function getLatestVersion(): ?SemanticVersion
     {
-        return self::getVersionForPackage('petebishwhip/nativephp-cli');
+        return self::getVersionForPackage('petebishwhip/native-cli');
     }
 
 
