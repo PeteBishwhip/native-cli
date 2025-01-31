@@ -51,6 +51,15 @@ class Cache
             })
             ->map(function ($file) {
                 return str_replace('_cache.json', '', $file);
-            });
+            })->values();
+    }
+
+    public function clearAllCaches(): void
+    {
+        $caches = $this->getAllAvailableCaches();
+
+        $caches->each(function ($cache) {
+            $this->removeCache($cache);
+        });
     }
 }
