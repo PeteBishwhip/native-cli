@@ -63,6 +63,9 @@ class CacheTest extends TestCase
     {
         $cache = new Cache();
 
+        // Ensure cache directory is empty
+        $cache->clearAllCaches();
+
         // TEST: getAllAvailableCaches returns an empty collection when no cache files exist
         $this->assertEquals([], $cache->getAllAvailableCaches()->toArray());
 

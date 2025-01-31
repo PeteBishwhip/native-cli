@@ -4,6 +4,7 @@ namespace Petebishwhip\NativePhpCli;
 
 use Petebishwhip\NativePhpCli\Command\CheckNativePHPUpdatesCommand;
 use Petebishwhip\NativePhpCli\Command\ClearCacheCommand;
+use Petebishwhip\NativePhpCli\Command\SelfUpdateCommand;
 use Petebishwhip\NativePhpCli\Command\UpdateNativePHPCommand;
 
 class Application extends \Symfony\Component\Console\Application
@@ -27,6 +28,7 @@ class Application extends \Symfony\Component\Console\Application
            new UpdateNativePHPCommand(),
            new CheckNativePHPUpdatesCommand(),
            new ClearCacheCommand(),
+           new SelfUpdateCommand(),
        ];
     }
 }
