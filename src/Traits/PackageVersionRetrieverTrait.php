@@ -15,7 +15,7 @@ trait PackageVersionRetrieverTrait
      * @throws Exception
      * @throws RateLimitedException
      */
-    public static function getVersionForPackage(string $package): ?SemanticVersion
+    protected static function getVersionForPackage(string $package): ?SemanticVersion
     {
         if (self::checkCache($package) !== null) {
             return SemanticVersion::parseOrNull(self::checkCache($package));
@@ -49,7 +49,7 @@ trait PackageVersionRetrieverTrait
         return SemanticVersion::parseOrNull($latestVersion);
     }
 
-    public static function getAllAvailableVersions(string $package): Collection
+    protected static function getAllAvailableVersions(string $package): Collection
     {
         $cache = new Cache();
         $cacheKey = 'available_versions';

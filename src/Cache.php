@@ -41,7 +41,7 @@ class Cache
             return null;
         }
 
-        return collect($cacheData[0] ?? $cacheData)->except('expires');
+        return collect($cacheData)->except('expires');
     }
 
     public function removeCache(string $key): bool
@@ -87,7 +87,7 @@ class Cache
             $cacheData = collect();
         }
 
-        $cacheData->put($key, array_merge(['expires' => time() + 3600, $value]));
+        $cacheData->put($key, array_merge(['expires' => time() + 3600], $value));
 
         file_put_contents(
             $cacheFile,
