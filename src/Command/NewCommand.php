@@ -57,7 +57,10 @@ class NewCommand extends Command
         try {
             $output->writeln('Creating a new NativePHP project...');
 
-            /** @noinspection PhpPossiblePolymorphicInvocationInspection */
+            /**
+             * @noinspection PhpPossiblePolymorphicInvocationInspection
+             * @phpstan-ignore method.notFound (Relates to getRawTokens only available from ArgvInput.)
+             */
             $process = new Process(['laravel', 'new', ...$input->getRawTokens(true)]);
             $process->setTty(Process::isTtySupported())
                 ->mustRun(function ($type, $buffer) {
